@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { RootState } from "../../store";
 import { useEffect } from "react";
-import { fetchQuestionsAsync } from "../pages/questionsSlice";
+import { fetchQuestionsAsync } from "../slices/questionsSlice";
+
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -11,21 +13,28 @@ const Home = () => {
 
     const dispatch = useAppDispatch();
     const vacations = useSelector((state: RootState) => state.questions.genQuestions);
+    const navigate = useNavigate()
 
-    useEffect(() => {
+    async function startQuiz() {
         try {
-            dispatch(fetchQuestionsAsync())
+
+            navigate('/quiz')
         } catch (error) {
             console.log(error);
-
         }
-    }, [])
+    }
+
+    // useEffect(() => {
+
+    // }, [])
 
 
     return (
         <div>
-            <h1>QuizWiz</h1>
-            <button className="homeButton">Start</button>
+
+            <div className="startBtnDiv">
+                <button className="homeButton" onClick={startQuiz}>Start</button>
+            </div>
         </div>
     )
 }

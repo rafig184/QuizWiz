@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react"
+
 import "./App.css"
-import { addDoc, collection } from '@firebase/firestore'
-import { fstore } from './firebase_handler.js'
-import { getDocs } from "firebase/firestore"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Home from "./app/components/home"
-import { useAppDispatch } from "./app/hooks"
-import { useSelector } from "react-redux"
-import { RootState } from "@reduxjs/toolkit/query"
+import Quiz from "./app/components/quiz"
+import logo from "../src/assets/logo.png"
 
 
 
@@ -15,8 +12,20 @@ const App = () => {
 
   return (
     <>
-      <Home />
+      <div className="header">
+        <img src={logo} width={250}></img>
+      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/quiz" element={<Quiz />} />
+        </Routes>
+      </Router>
     </>
+
+
+
   )
 }
 

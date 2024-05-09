@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
-import questionsSlice from "./components/pages/questionsSlice"
+import questionsSlice from "./components/slices/questionsSlice"
 
 
 

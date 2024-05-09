@@ -7,7 +7,7 @@ export async function getAllQuestions() {
         const querySnapshot = await getDocs(questionsCollection);
 
         const questionsData = querySnapshot.docs.map((doc) => doc.data());
-        console.log(questionsData[0].results);
+        // console.log(questionsData[0].results);
         const data = questionsData[0].results
         return data
     } catch (error) {
