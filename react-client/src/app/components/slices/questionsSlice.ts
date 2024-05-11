@@ -1,16 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getAllQuestions } from "../home/api/api"
+import { getAllGeneralQuestions, getAllSportQuestions } from "../home/api/api"
 
 
 
 const initialState = {
-    genQuestions: [] as any,
+    questions: [] as any,
+
 }
 
-export const fetchQuestionsAsync = createAsyncThunk(
-    "home/getAllQuestions",
+export const fetchGeneralQuestionsAsync = createAsyncThunk(
+    "home/getAllGeneralQuestions",
     async () => {
-        const response = await getAllQuestions()
+        const response = await getAllGeneralQuestions()
+        return response
+    }
+)
+
+export const fetchSportQuestionsAsync = createAsyncThunk(
+    "home/getAllSportQuestions",
+    async () => {
+        const response = await getAllSportQuestions()
         return response
     }
 )
@@ -28,16 +37,30 @@ export const questionsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchQuestionsAsync.pending, (state) => {
-                state.genQuestions = []
+            .addCase(fetchGeneralQuestionsAsync.pending, (state) => {
+                state.questions = []
             })
 
-            .addCase(fetchQuestionsAsync.fulfilled, (state, action) => {
-                state.genQuestions = action.payload
+            .addCase(fetchGeneralQuestionsAsync.fulfilled, (state, action) => {
+                state.questions = action.payload
             })
 
-            .addCase(fetchQuestionsAsync.rejected, (state) => {
-                state.genQuestions = []
+            .addCase(fetchGeneralQuestionsAsync.rejected, (state) => {
+                state.questions = []
+            })
+
+
+        builder
+            .addCase(fetchSportQuestionsAsync.pending, (state) => {
+                state.questions = []
+            })
+
+            .addCase(fetchSportQuestionsAsync.fulfilled, (state, action) => {
+                state.questions = action.payload
+            })
+
+            .addCase(fetchSportQuestionsAsync.rejected, (state) => {
+                state.questions = []
             })
     },
 

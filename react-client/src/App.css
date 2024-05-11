@@ -59,6 +59,7 @@ body {
 
 .header {
   text-align: center;
+
 }
 
 .startBtnDiv {
@@ -128,11 +129,36 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   font-family: "Open Sans", sans-serif;
+  /* margin-bottom: 10%; */
 }
 
-.correct {
-  color: rgb(78, 138, 78);
+.correctAnswer {
+  color: rgb(67, 201, 67);
   font-family: "Open Sans", sans-serif;
+  font-size: xx-large;
+  padding-bottom: 7%;
+  margin-bottom: -7%;
+}
 
-  /* margin-bottom: -20%; */
+.wrongAnswer {
+  color: rgb(243, 73, 73);
+  font-family: "Open Sans", sans-serif;
+  font-size: xx-large;
+  padding-bottom: 7%;
+  margin-bottom: -7%;
+}
+
+
+
+.categorySelectDiv {
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 4%;
+}
+
+.googleButton {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  margin-top: 4%;
 }
