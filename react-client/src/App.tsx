@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import Home from "./app/components/home"
 import Quiz from "./app/components/quiz"
 import logo from "../src/assets/logo.png"
-import { Auth } from "./app/components/auth"
 import ScoreBoard from "./app/components/scoreBoard"
 import { IconButton } from "@mui/material"
 
@@ -35,15 +34,12 @@ const App = () => {
 
   return (
     <>
-      <div className="header">
-        <img className="logo" src={logo} width={200}></img>
-      </div>
+
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/quiz" element={<Quiz />} />
-          <Route path="/signin" element={<Auth />} />
           <Route path="/scoreBoard" element={<ScoreBoard />} />
         </Routes>
       </Router>

@@ -111,9 +111,10 @@ body {
   border-radius: 50px;
   cursor: pointer;
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
   font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
+  /* font-weight: bold; */
+  /* text-transform: uppercase; */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   /* margin-bottom: 5%; */
@@ -141,6 +142,12 @@ body {
   margin-top: 5%;
 }
 
+.homeBtnDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
 .questionButton {
   background-color: #3c8cce;
   color: #fff;
@@ -149,8 +156,9 @@ body {
   border-radius: 50px;
   cursor: pointer;
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
   font-size: larger;
-  font-weight: bold;
+  /* font-weight: bold; */
   /* text-transform: uppercase; */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -265,6 +273,9 @@ body {
   padding-bottom: "2%";
   padding-left: "3%";
   font-size: larger;
+  margin-left: 5%;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
 }
 
 .score {
@@ -273,24 +284,34 @@ body {
   padding-bottom: "2%";
   margin-left: "3%";
   font-size: larger;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
 }
 
+.logoQuiz {
+  width: 600px;
+}
+
+.h2question {
+  font-size: large;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
 
 @media (max-width: 600px) {
 
-
+  .logoQuiz {
+    width: 350px;
+    margin-bottom: 3%;
+  }
 
   .tableDiv {
     /* Your mobile-specific styles here */
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0%;
     width: 100%;
 
   }
 
-  .startBtnDiv {
-    margin-top: 10%;
-  }
 
   .questionButton {
     /* font-size: 14px; */
@@ -305,7 +326,7 @@ body {
 
   .answerButtons {
     gap: 30px;
-
+    width: 115%;
 
 
     /* Adjust gap for smaller screens */
@@ -349,7 +370,7 @@ body {
   }
 
   .stepper {
-    margin-right: 13%;
+    margin-right: 19%;
   }
 
   .timer {
@@ -366,8 +387,9 @@ body {
     border-radius: 50px;
     cursor: pointer;
     font-family: "Open Sans", sans-serif;
+    font-weight: 400;
     font-size: 20px;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-transform: uppercase;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
@@ -394,7 +416,7 @@ body {
     /* text-align: "left"; */
     /* margin-top: "-2%"; */
     padding-bottom: "2%";
-    margin-left: "10%";
+
     font-size: medium;
     /* text-transform: uppercase; */
   }
@@ -445,4 +467,6 @@ body {
     color: #666;
     margin-bottom: 10px;
   }
+
+
 }

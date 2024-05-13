@@ -16,6 +16,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import { IconButton } from "@mui/material";
+import logo from "../../../assets/horizontalLogo.png"
 
 const ScoreBoard = () => {
 
@@ -71,6 +72,9 @@ const ScoreBoard = () => {
 
     return (
         <div className="tableDiv" >
+            <div className="header" >
+                <img className="logoQuiz" src={logo}></img>
+            </div>
             <h1 style={{ textAlign: "center", fontFamily: "Open Sans, sans-serif" }}>Score Board</h1>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 430 }} aria-label="simple table">

@@ -11,6 +11,7 @@ import { fetchFilmQuestionsAsync, fetchGeneralQuestionsAsync, fetchHistoryQuesti
 import { fetchSignInWithGoogle, fetchSignOutWithGoogle } from "../slices/usersSlice";
 import { AlertDialogSignIn } from "../../ui-components/alertdialog";
 import HomeIcon from '@mui/icons-material/Home';
+import logo from "../../../assets/logo.png"
 // import {  GoogleIcon } from '@mui/icons-material/Google';
 
 
@@ -111,61 +112,61 @@ const Home = () => {
 
     };
 
-    // useEffect(() => {
-    //     if (loggedUser === true) {
-    //         setIsUserSignedIn(true)
-    //         setUserName(loggedUser.user.displayName)
-    //     }
-    // }, [])
-
 
 
 
 
     return (
-        <div className="mainHomeDiv">
-            <div className="home-container">
-                <h1>Welcome to QuizWiz!</h1>
-                <p>Are you ready to test your knowledge and have fun? QuizWiz is the ultimate trivia game that will challenge your brain with a wide range of exciting questions across various categories.</p>
-                <ul>
-                    <li>Choose from a variety of categories including Science, History, Movies, Sports, and more.</li>
-                    <li>Compete with friends and family to see who's the ultimate QuizWiz!</li>
-                    <li>Unlock achievements and climb the leaderboard to showcase your trivia mastery.</li>
-                </ul>
-                <p>Get started now and embark on a journey of knowledge and entertainment with QuizWiz!</p>
-                <p>But first, Sign in with your Google Account.</p>
-            </div>
-            <div className="categorySelectDiv">
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl required fullWidth variant="filled" sx={{ borderRadius: '5px', backgroundColor: '#f5f5f5' }}>
-                        <InputLabel id="demo-simple-select-required-label">Select Category</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-required-label"
-                            id="demo-simple-select-required"
-                            value={category}
-                            label="Category"
-                            onChange={handleChange}
-                            sx={{ backgroundColor: '#f5f5f5' }}
-                        >
-
-                            <MenuItem value={"General Questions"}>General Questions</MenuItem>
-                            <MenuItem value={"Sport"}>Sport</MenuItem>
-                            <MenuItem value={"Movies"}>Movies</MenuItem>
-                            <MenuItem value={"History"}>History</MenuItem>
-
-                        </Select>
-                    </FormControl>
-                </Box>
-                {isCategoryNotSelected ? <p style={{ textAlign: "center", color: " red" }}>Please select a category</p> : ""}
-            </div>
-            <div className="googleButton">
-                {isUserSignedIn ? <GoogleButton label={`Welcome ${userName}`} onClick={signOut} /> : <GoogleButton onClick={signIn} />}
-            </div>
-            <div className="startBtnDiv">
-                <button className="homeButton" onClick={startQuiz}>Start</button>
+        <div>
+            <div className="header">
+                <img className="logo" src={logo} width={200}></img>
             </div>
 
-            {openDialog && <AlertDialogSignIn />}
+            <div className="mainHomeDiv">
+
+                <div className="home-container">
+                    <h1>Welcome to QuizWiz!</h1>
+                    <p>Are you ready to test your knowledge and have fun? QuizWiz is the ultimate trivia game that will challenge your brain with a wide range of exciting questions across various categories.</p>
+                    <ul>
+                        <li>Choose from a variety of categories including Science, History, Movies, Sports, and more.</li>
+                        <li>Compete with friends and family to see who's the ultimate QuizWiz!</li>
+                        <li>Climb the leaderboard to showcase your trivia mastery.</li>
+                    </ul>
+                    <p>Get started now and embark on a journey of knowledge and entertainment with QuizWiz!</p>
+                    <p>But first, Sign in with your Google Account.</p>
+                </div>
+                <div className="categorySelectDiv">
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl required fullWidth variant="filled" sx={{ borderRadius: '5px', backgroundColor: '#f5f5f5' }}>
+                            <InputLabel id="demo-simple-select-required-label">Select Category</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-required-label"
+                                id="demo-simple-select-required"
+                                value={category}
+                                label="Category"
+                                onChange={handleChange}
+                                sx={{ backgroundColor: '#f5f5f5' }}
+                            >
+
+                                <MenuItem value={"General Questions"}>General Questions</MenuItem>
+                                <MenuItem value={"Sport"}>Sport</MenuItem>
+                                <MenuItem value={"Movies"}>Movies</MenuItem>
+                                <MenuItem value={"History"}>History</MenuItem>
+
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    {isCategoryNotSelected ? <p style={{ textAlign: "center", color: " red" }}>Please select a category</p> : ""}
+                </div>
+                <div className="googleButton">
+                    {isUserSignedIn ? <GoogleButton label={`Welcome ${userName}`} onClick={signOut} /> : <GoogleButton onClick={signIn} />}
+                </div>
+                <div className="startBtnDiv">
+                    <button className="homeButton" onClick={startQuiz}>Start</button>
+                </div>
+
+                {openDialog && <AlertDialogSignIn />}
+            </div>
         </div>
     )
 }

@@ -41,10 +41,7 @@ const SubmitTimeProgressBar = () => {
 
             if (timeLeft === 0 && timerId.current) {
                 clearInterval(timerId.current);
-                // alert("Time is up.. You lost!")
                 // setOpenDialog(true);
-                // navigate('/home')
-                // console.log(`"Dialog state set to true"==> ${openDialog}`);
                 return;
             }
         }

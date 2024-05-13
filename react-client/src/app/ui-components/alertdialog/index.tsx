@@ -6,6 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+
 
 export function AlertDialogTime() {
     const [open, setOpen] = React.useState(true);
@@ -36,7 +38,7 @@ export function AlertDialogTime() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus>
-                        Back Home
+                        Close
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -113,6 +115,48 @@ export function AlertDialogSignIn() {
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus>
                         Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </React.Fragment>
+    );
+}
+
+export function AlertDialogHomeBtn() {
+    const [open, setOpen] = React.useState(true);
+
+
+    const navigate = useNavigate()
+    const handleCloseHome = () => {
+        setOpen(false);
+        navigate("/home")
+    };
+    const handleClose = () => {
+        setOpen(false);
+
+    };
+
+
+    return (
+        <React.Fragment>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure that you want to quit?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Quiting in the middle of the game wont get you any points..
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Close</Button>
+                    <Button onClick={handleCloseHome} autoFocus>
+                        Back Home
                     </Button>
                 </DialogActions>
             </Dialog>

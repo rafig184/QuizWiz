@@ -10,11 +10,11 @@ import LinearDeterminate from "../../ui-components/progressBar";
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from "react-router-dom";
 import SubmitTimeProgressBar from "../../ui-components/progressBar";
-import { AlertDialogWrong } from "../../ui-components/alertdialog";
+import { AlertDialogHomeBtn, AlertDialogWrong } from "../../ui-components/alertdialog";
 import HorizontalLinearAlternativeLabelStepper from "../../ui-components/stepper";
 import { addUserToDB } from "../home/api/api";
 import { fetchScoreboard } from "../slices/usersSlice";
-
+import logo from "../../../assets/horizontalLogo.png"
 
 
 
@@ -32,9 +32,11 @@ const Quiz = () => {
     const [isCorrect, setIsCorrect] = useState(false)
     const [isWrong, setIsWrong] = useState(false)
     const [openDialog, setOpenDialog] = useState(false)
+    const [isQuiting, setIsQuiting] = useState(false)
     const [activeStep, setActiveStep] = useState(0);
     const [score, setScore] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState("");
+
 
     const navigate = useNavigate()
 
@@ -169,11 +171,17 @@ const Quiz = () => {
     }
 
     function homeButton() {
-        navigate("/home")
+        setIsQuiting(true)
+        setTimeout(() => {
+            setIsQuiting(false)
+        }, 30000);
     }
 
     return (
         <div>
+            <div className="header" >
+                <img className="logoQuiz" src={logo}></img>
+            </div>
             <div className="questionDiv">
                 <div className="stepper" style={{ marginBottom: "4%", width: "100%", marginTop: "-6%" }}>
 
@@ -194,7 +202,7 @@ const Quiz = () => {
                         <button
                             key={index}
                             className="questionButton"
-                            style={{ backgroundColor: selectedAnswer === answer ? (isCorrect ? '#5BB15C' : 'red') : '' }}
+                            style={{ backgroundColor: selectedAnswer === answer ? (isCorrect ? '#5BB15C' : '') : '' }}
                             onClick={() => selectAnswer(answer)}
                         >
                             {isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : replaceHTMLCharacters(answer)}
@@ -210,9 +218,11 @@ const Quiz = () => {
 
             </div>
             {openDialog && <AlertDialogWrong />}
-            <div className="startBtnDiv">
+            <div className="homeBtnDiv">
                 <button style={{ display: "flex", alignItems: " center" }} className="homeButton" onClick={homeButton}><HomeIcon style={{ fontSize: "xx-large" }} /> Home</button>
             </div>
+            {isQuiting && <AlertDialogHomeBtn />}
+
         </div>
     )
 }
