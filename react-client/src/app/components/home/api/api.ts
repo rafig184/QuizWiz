@@ -36,6 +36,33 @@ export async function getAllSportQuestions() {
     }
 }
 
+export async function getAllFilmQuestions() {
+    try {
+        const questionsCollection = collection(fstore, "filmQuestions");
+        const querySnapshot = await getDocs(questionsCollection);
+
+        const questionsData = querySnapshot.docs.map((doc) => doc.data());
+        // console.log(questionsData[0].results);
+        const data = questionsData[0].results
+        return data
+    } catch (error) {
+        console.log(error);
+    }
+}
+export async function getAllHistoryQuestions() {
+    try {
+        const questionsCollection = collection(fstore, "historyQuestions");
+        const querySnapshot = await getDocs(questionsCollection);
+
+        const questionsData = querySnapshot.docs.map((doc) => doc.data());
+        // console.log(questionsData[0].results);
+        const data = questionsData[0].results
+        return data
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const signInWithGoogle = async () => {
     try {
         const result = await signInWithPopup(auth, googleProvider);
@@ -75,7 +102,7 @@ export async function addUserToDB(data: UserData) {
             querySnapshot.forEach(async (doc) => {
                 const userDocRef = doc.ref;
                 const userData = doc.data() as UserData;
-                console.log(userData);
+
 
                 const updatedScore = userData.score + score;
 

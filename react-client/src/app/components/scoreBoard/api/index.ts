@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { firestore } from "../../../../../../server/firebase";
 
 
@@ -7,14 +7,14 @@ import { firestore } from "../../../../../../server/firebase";
 
 export async function getScoreBoardService() {
     try {
-        const questionsCollection = collection(firestore, "users");
-        const querySnapshot = await getDocs(questionsCollection);
+        const usersRef = collection(firestore, 'users');
+        const querySnapshot = await getDocs(query(usersRef, orderBy('score', 'desc'), limit(10)));
 
-        const questionsData = querySnapshot.docs.map((doc) => doc.data());
-        console.log(questionsData);
-        const data = questionsData
-        return data
+        const usersData = querySnapshot.docs.map((doc) => doc.data());
+        console.log(usersData);
+        return usersData;
     } catch (error) {
-        console.log(error);
+        console.log('Error:', error);
+        return [];
     }
 }

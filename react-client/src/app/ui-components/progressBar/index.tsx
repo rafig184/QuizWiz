@@ -42,7 +42,7 @@ const SubmitTimeProgressBar = () => {
             if (timeLeft === 0 && timerId.current) {
                 clearInterval(timerId.current);
                 // alert("Time is up.. You lost!")
-                setOpenDialog(true);
+                // setOpenDialog(true);
                 // navigate('/home')
                 // console.log(`"Dialog state set to true"==> ${openDialog}`);
                 return;
@@ -66,11 +66,12 @@ const SubmitTimeProgressBar = () => {
                     marginBottom: "-4%"
                 }}
             >
-                <Box sx={{ width: "50%" }}>
+                <Box sx={{ width: "85%" }}>
                     <LinearProgress
                         variant="determinate"
                         value={progressBarPercent}
                         sx={{
+                            height: "50%",
                             borderRadius: "20px",
                             background: "rgba(132, 162, 233, 0.4)",
                             padding: "15px",
@@ -82,10 +83,10 @@ const SubmitTimeProgressBar = () => {
                 </Box>
 
                 <Box sx={{ ml: 1, display: "flex" }}>
-                    <Typography sx={{ fontWeight: 400, fontSize: "25px" }}>
+                    <Typography sx={{ fontWeight: 400, fontSize: "20px", marginTop: "5%" }}>
                         Time left:
                     </Typography>
-                    <Typography sx={{ fontWeight: 700, fontSize: "25px", ml: 1 }}>
+                    <Typography sx={{ fontWeight: 700, fontSize: "20px", ml: 1, marginTop: "5%" }}>
                         {moment
                             .utc(1000 * timeLeft)
                             .format(

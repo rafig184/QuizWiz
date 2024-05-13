@@ -34,7 +34,7 @@ const Quiz = () => {
     const [openDialog, setOpenDialog] = useState(false)
     const [activeStep, setActiveStep] = useState(0);
     const [score, setScore] = useState(0);
-
+    const [selectedAnswer, setSelectedAnswer] = useState("");
 
     const navigate = useNavigate()
 
@@ -102,12 +102,18 @@ const Quiz = () => {
 
 
     const replaceHTMLCharacters = (str: string) => {
-        return str.replace(/&quot;|&#039;/g, (match) => {
+        return str.replace(/&quot;|&#039;|&amp;|&lt;|&gt;/g, (match) => {
             switch (match) {
                 case '&quot;':
                     return '"';
                 case '&#039;':
                     return "'";
+                case '&amp;':
+                    return '&';
+                case '&lt;':
+                    return '<';
+                case '&gt;':
+                    return '>';
                 default:
                     return match;
             }
@@ -119,6 +125,7 @@ const Quiz = () => {
         const loggeduser = loggedUser.user.displayName
         console.log(answer);
         if (answer === correctAnswer) {
+            setSelectedAnswer(answer);
             const score = 1000
             setScore((oldScore) => oldScore + score)
             setIsCorrect(true)
@@ -133,14 +140,17 @@ const Quiz = () => {
                 const finalScore = 0
                 const user = await addUserToDB({ user: loggeduser, score: finalScore })
                 console.log({ user: loggeduser, score: finalScore });
+
                 dispatch(fetchScoreboard())
                 setIsWrong(true)
                 setOpenDialog(true)
+                setSelectedAnswer("");
             } else {
                 dispatch(fetchScoreboard())
                 setIsWrong(true)
                 setOpenDialog(true)
                 setScore(0)
+                setSelectedAnswer("");
                 const user = await addUserToDB({ user: loggeduser, score: score })
                 console.log({ user: loggeduser, score: score });
             }
@@ -165,27 +175,34 @@ const Quiz = () => {
     return (
         <div>
             <div className="questionDiv">
-                <div style={{ marginBottom: "4%", width: "100%" }}>
-                    <h3 style={{ textAlign: "center", marginTop: "-2%", paddingBottom: "2%" }}>{`Score : ${score}`}</h3>
+                <div className="stepper" style={{ marginBottom: "4%", width: "100%", marginTop: "-6%" }}>
+
+                    <div className="nameScoreDiv">
+                        <h4 className="name" >{`Player : ${loggedUser.user.displayName}`}</h4>
+                        <h4 className="score">{`Score : ${score}`}</h4>
+                    </div>
                     <HorizontalLinearAlternativeLabelStepper activeStep={activeStep} />
                 </div>
                 <div className="questionClass">
                     {question && Object.keys(question).length !== 0 && (
-                        <h1>{isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : replaceHTMLCharacters(question.question)}</h1>
+                        <h2 className="h2question">{isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : replaceHTMLCharacters(question.question)}</h2>
                     )}
                 </div>
 
                 <div className="answerButtons">
                     {shuffledAnswers.map((answer, index) => (
-                        <button key={index} className="questionButton" onClick={() => selectAnswer(answer)}>
-                            <h1>{isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : answer}</h1>
+                        <button
+                            key={index}
+                            className="questionButton"
+                            style={{ backgroundColor: selectedAnswer === answer ? (isCorrect ? '#5BB15C' : 'red') : '' }}
+                            onClick={() => selectAnswer(answer)}
+                        >
+                            {isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : replaceHTMLCharacters(answer)}
                         </button>
                     ))}
-
-
                 </div>
                 {isCorrect ? (<h2 className="correctAnswer">Correct!</h2>) : isWrong ? (<h2 className="wrongAnswer">Wrong Answer!</h2>) :
-                    <div style={{ width: "100%" }}>
+                    <div className="timer" style={{ width: "100%" }}>
                         <SubmitTimeProgressBar />
                     </div>
                 }

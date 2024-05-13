@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getAllGeneralQuestions, getAllSportQuestions } from "../home/api/api"
+import { getAllFilmQuestions, getAllGeneralQuestions, getAllHistoryQuestions, getAllSportQuestions } from "../home/api/api"
 
 
 
@@ -20,6 +20,20 @@ export const fetchSportQuestionsAsync = createAsyncThunk(
     "home/getAllSportQuestions",
     async () => {
         const response = await getAllSportQuestions()
+        return response
+    }
+)
+export const fetchFilmQuestionsAsync = createAsyncThunk(
+    "home/getAllFilmQuestions",
+    async () => {
+        const response = await getAllFilmQuestions()
+        return response
+    }
+)
+export const fetchHistoryQuestionsAsync = createAsyncThunk(
+    "home/getAllHistoryQuestions",
+    async () => {
+        const response = await getAllHistoryQuestions()
         return response
     }
 )
@@ -60,6 +74,31 @@ export const questionsSlice = createSlice({
             })
 
             .addCase(fetchSportQuestionsAsync.rejected, (state) => {
+                state.questions = []
+            })
+
+        builder
+            .addCase(fetchFilmQuestionsAsync.pending, (state) => {
+                state.questions = []
+            })
+
+            .addCase(fetchFilmQuestionsAsync.fulfilled, (state, action) => {
+                state.questions = action.payload
+            })
+
+            .addCase(fetchFilmQuestionsAsync.rejected, (state) => {
+                state.questions = []
+            })
+        builder
+            .addCase(fetchHistoryQuestionsAsync.pending, (state) => {
+                state.questions = []
+            })
+
+            .addCase(fetchHistoryQuestionsAsync.fulfilled, (state, action) => {
+                state.questions = action.payload
+            })
+
+            .addCase(fetchHistoryQuestionsAsync.rejected, (state) => {
                 state.questions = []
             })
     },

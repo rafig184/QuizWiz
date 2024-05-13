@@ -35,11 +35,8 @@ const App = () => {
 
   return (
     <>
-
-      <h3>{userName}</h3>
       <div className="header">
-
-        <img src={logo} width={250}></img>
+        <img className="logo" src={logo} width={200}></img>
       </div>
       <Router>
         <Routes>

@@ -70,14 +70,14 @@ const ScoreBoard = () => {
 
 
     return (
-        <div style={{ marginRight: "32%", marginLeft: "32%" }}>
-            <h1 style={{ textAlign: "center" }}>Score Board</h1>
+        <div className="tableDiv" >
+            <h1 style={{ textAlign: "center", fontFamily: "Open Sans, sans-serif" }}>Score Board</h1>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ minWidth: 430 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell style={{ fontWeight: "700" }}>User</StyledTableCell>
-                            <StyledTableCell style={{ fontWeight: "700" }} align="center">Score</StyledTableCell>
+                            <StyledTableCell style={{ fontWeight: "700", paddingLeft: "10%", fontFamily: "Open Sans, sans-serif" }}>User</StyledTableCell>
+                            <StyledTableCell style={{ fontWeight: "700", fontFamily: "Open Sans, sans-serif" }} align="center">Score</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -86,10 +86,10 @@ const ScoreBoard = () => {
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <StyledTableCell component="th" scope="row">
+                                <StyledTableCell style={{ paddingLeft: "7%", fontFamily: "Open Sans, sans-serif" }} component="th" scope="row">
                                     {row.user}
                                 </StyledTableCell>
-                                <StyledTableCell align="center">{row.score}</StyledTableCell>
+                                <StyledTableCell style={{ fontFamily: "Open Sans, sans-serif" }} align="center">{row.score}</StyledTableCell>
                             </StyledTableRow >
                         ))}
                     </TableBody>
