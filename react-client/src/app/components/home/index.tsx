@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../hooks";
 import { RootState } from "../../store";
 import React, { useEffect } from "react";
 import { auth, googleProvider } from "../../../../../server/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom";
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
@@ -12,6 +12,8 @@ import { fetchSignInWithGoogle, fetchSignOutWithGoogle } from "../slices/usersSl
 import { AlertDialogSignIn } from "../../ui-components/alertdialog";
 import HomeIcon from '@mui/icons-material/Home';
 import logo from "../../../assets/logo.png"
+import firebase from "firebase/compat/app";
+import Spinner from "../../ui-components/spinner";
 // import {  GoogleIcon } from '@mui/icons-material/Google';
 
 
@@ -29,6 +31,25 @@ const Home = () => {
     const [isCategoryNotSelected, setIsCategoryNotSelected] = React.useState(false);
     const [isUserSignedIn, setIsUserSignedIn] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
+
+
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsUserSignedIn(true);
+                setUserName(user.displayName || '');
+                console.log(user.displayName);
+
+            } else {
+                setIsUserSignedIn(false);
+                setUserName('');
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
 
 
@@ -45,31 +66,43 @@ const Home = () => {
 
         if (category === "General Questions") {
             try {
+                setIsLoading(true)
                 await dispatch(fetchGeneralQuestionsAsync())
                 navigate('/quiz')
             } catch (error) {
                 console.log(error);
+            } finally {
+                setIsLoading(false)
             }
         } else if (category === "Sport") {
             try {
+                setIsLoading(true)
                 await dispatch(fetchSportQuestionsAsync())
                 navigate('/quiz')
             } catch (error) {
                 console.log(error);
+            } finally {
+                setIsLoading(false)
             }
         } else if (category === "Movies") {
             try {
+                setIsLoading(true)
                 await dispatch(fetchFilmQuestionsAsync())
                 navigate('/quiz')
             } catch (error) {
                 console.log(error);
+            } finally {
+                setIsLoading(false)
             }
         } else if (category === "History") {
             try {
+                setIsLoading(true)
                 await dispatch(fetchHistoryQuestionsAsync())
                 navigate('/quiz')
             } catch (error) {
                 console.log(error);
+            } finally {
+                setIsLoading(false)
             }
         }
 
@@ -122,7 +155,7 @@ const Home = () => {
                 <img className="logo" src={logo} width={200}></img>
             </div>
 
-            <div className="mainHomeDiv">
+            {isLoading ? <Spinner /> : <div className="mainHomeDiv">
 
                 <div className="home-container">
                     <h1>Welcome to QuizWiz!</h1>
@@ -147,7 +180,6 @@ const Home = () => {
                                 onChange={handleChange}
                                 sx={{ backgroundColor: '#f5f5f5' }}
                             >
-
                                 <MenuItem value={"General Questions"}>General Questions</MenuItem>
                                 <MenuItem value={"Sport"}>Sport</MenuItem>
                                 <MenuItem value={"Movies"}>Movies</MenuItem>
@@ -162,11 +194,11 @@ const Home = () => {
                     {isUserSignedIn ? <GoogleButton label={`Welcome ${userName}`} onClick={signOut} /> : <GoogleButton onClick={signIn} />}
                 </div>
                 <div className="startBtnDiv">
-                    <button className="homeButton" onClick={startQuiz}>Start</button>
+                    <button className="startButton" onClick={startQuiz}>Start</button>
                 </div>
 
                 {openDialog && <AlertDialogSignIn />}
-            </div>
+            </div>}
         </div>
     )
 }

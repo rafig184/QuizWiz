@@ -11,18 +11,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { fetchScoreboard } from "../slices/usersSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import { IconButton } from "@mui/material";
 import logo from "../../../assets/horizontalLogo.png"
+import Spinner from "../../ui-components/spinner";
+
 
 const ScoreBoard = () => {
 
     const dispatch = useAppDispatch();
     const scoreBoard = useSelector((state: RootState) => state.loggedUser.scoreBoard);
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
 
 
 
@@ -36,12 +39,15 @@ const ScoreBoard = () => {
 
     async function getScoreBoard() {
         try {
+            setIsLoading(true)
             const result = await dispatch(fetchScoreboard())
             console.log(result);
             console.log(scoreBoard);
 
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -72,24 +78,31 @@ const ScoreBoard = () => {
 
     return (
         <div className="tableDiv" >
+
             <div className="header" >
                 <img className="logoQuiz" src={logo}></img>
             </div>
             <h1 style={{ textAlign: "center", fontFamily: "Open Sans, sans-serif" }}>Score Board</h1>
-            <TableContainer component={Paper}>
+            {isLoading ? <Spinner /> : <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 430 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
+                            <StyledTableCell style={{ fontWeight: "700", paddingLeft: "7%", fontFamily: "Open Sans, sans-serif" }}>#</StyledTableCell>
                             <StyledTableCell style={{ fontWeight: "700", paddingLeft: "10%", fontFamily: "Open Sans, sans-serif" }}>User</StyledTableCell>
                             <StyledTableCell style={{ fontWeight: "700", fontFamily: "Open Sans, sans-serif" }} align="center">Score</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {scoreBoard.map((row: any) => (
+
+                        {scoreBoard.map((row: any, index: number) => (
+
                             <StyledTableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
+                                <StyledTableCell style={{ paddingLeft: "7%", fontFamily: "Open Sans, sans-serif" }} component="th" scope="row">
+                                    {index + 1}
+                                </StyledTableCell>
                                 <StyledTableCell style={{ paddingLeft: "7%", fontFamily: "Open Sans, sans-serif" }} component="th" scope="row">
                                     {row.user}
                                 </StyledTableCell>
@@ -98,13 +111,14 @@ const ScoreBoard = () => {
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer>}
+
             <div>
                 <div>
 
                 </div>
                 <div className="startBtnDiv">
-                    <button style={{ display: "flex", alignItems: " center" }} className="homeButton" onClick={homeButton}><HomeIcon style={{ fontSize: "xx-large" }} /> Home</button>
+                    <button style={{ display: "flex", alignItems: " center", width: "40%" }} className="homeButton" onClick={homeButton}><HomeIcon style={{ fontSize: "xx-large" }} /> Home</button>
                 </div>
             </div>
         </div>

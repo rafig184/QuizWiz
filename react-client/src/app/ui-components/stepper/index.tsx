@@ -5,24 +5,24 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
 const steps = [
-  'Q1',
-  'Q2',
-  'Q3',
-  'Q4',
-  'Q5',
-  'Q6',
-  'Q7',
-  'Q8',
-  'Q9',
-  'Q10',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
 ];
 
-export default function HorizontalLinearAlternativeLabelStepper(props: { activeStep: number }) {
+export default function HorizontalLinearAlternativeLabelStepper(props: { key: number, activeStep: number }) {
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={props.activeStep} alternativeLabel>
         {steps.map((label) => (
-          <Step key={label}>
+          <Step key={Math.random()}>
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}

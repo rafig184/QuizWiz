@@ -78,7 +78,7 @@ export function AlertDialogWrong() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus>
-                        Back Home
+                        Close
                     </Button>
                 </DialogActions>
             </Dialog>

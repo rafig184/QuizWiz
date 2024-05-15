@@ -15,6 +15,8 @@ import HorizontalLinearAlternativeLabelStepper from "../../ui-components/stepper
 import { addUserToDB } from "../home/api/api";
 import { fetchScoreboard } from "../slices/usersSlice";
 import logo from "../../../assets/horizontalLogo.png"
+import Skelaton from "../../ui-components/skelaton";
+import Spinner from "../../ui-components/spinner";
 
 
 
@@ -137,7 +139,7 @@ const Quiz = () => {
                 setIsCorrect(false)
             }, 2500);
         } else {
-            if (activeStep < 2) {
+            if (activeStep < 3) {
                 setScore(0)
                 const finalScore = 0
                 const user = await addUserToDB({ user: loggeduser, score: finalScore })
@@ -177,8 +179,10 @@ const Quiz = () => {
         }, 30000);
     }
 
+
+
     return (
-        <div>
+        <div className="mainQuiz">
             <div className="header" >
                 <img className="logoQuiz" src={logo}></img>
             </div>
@@ -189,23 +193,27 @@ const Quiz = () => {
                         <h4 className="name" >{`Player : ${loggedUser.user.displayName}`}</h4>
                         <h4 className="score">{`Score : ${score}`}</h4>
                     </div>
-                    <HorizontalLinearAlternativeLabelStepper activeStep={activeStep} />
+                    <HorizontalLinearAlternativeLabelStepper key={activeStep} activeStep={activeStep} />
                 </div>
                 <div className="questionClass">
                     {question && Object.keys(question).length !== 0 && (
-                        <h2 className="h2question">{isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : replaceHTMLCharacters(question.question)}</h2>
+                        <h2 className="h2question">{replaceHTMLCharacters(question.question)}</h2>
                     )}
                 </div>
+
 
                 <div className="answerButtons">
                     {shuffledAnswers.map((answer, index) => (
                         <button
                             key={index}
                             className="questionButton"
-                            style={{ backgroundColor: selectedAnswer === answer ? (isCorrect ? '#5BB15C' : '') : '' }}
+                            style={{
+                                backgroundColor: selectedAnswer === answer ? (isCorrect ? '#20c428' : isWrong ? '#F44336' : '') : '',
+                                border: selectedAnswer === answer ? (isCorrect ? '3px solid #1a9c20' : isWrong ? '2px solid #F44336' : '') : ''
+                            }}
                             onClick={() => selectAnswer(answer)}
                         >
-                            {isLoading ? (<Skeleton variant="text" sx={{ fontSize: '1rem' }} />) : replaceHTMLCharacters(answer)}
+                            {replaceHTMLCharacters(answer)}
                         </button>
                     ))}
                 </div>

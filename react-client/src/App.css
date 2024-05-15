@@ -3,6 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  /* scale: 90%; */
 }
 
 body {
@@ -28,6 +29,10 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.mainQuiz {
+  scale: 90%;
 }
 
 .mainHomeDiv {
@@ -104,6 +109,7 @@ body {
 
 
 .homeButton {
+  justify-content: center;
   background-color: #ff6b6b;
   color: #fff;
   padding: 30px 50px;
@@ -117,14 +123,48 @@ body {
   /* text-transform: uppercase; */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  /* margin-bottom: 5%; */
+  margin-bottom: 5%;
+  width: 20%;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    background-color: #f85555;
   }
 
   &:active {
+    background-color: #ff6b6b;
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+}
+
+.startButton {
+  background-color: #ff6b6b;
+  color: #fff;
+  padding: 30px 50px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  /* font-weight: bold; */
+  /* text-transform: uppercase; */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  margin-bottom: 5%;
+  width: 40%;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    background-color: #f85555;
+  }
+
+  &:active {
+    background-color: #ff6b6b;
     transform: translateY(1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
@@ -162,10 +202,11 @@ body {
   /* text-transform: uppercase; */
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 450px;
+  width: 400px;
   /* Set the width you want */
   height: 100px;
   /* Set the height you want */
+  border: 3px solid #3274aa;
 
   &:hover {
     transform: translateY(-3px);
@@ -187,8 +228,8 @@ body {
   flex-direction: column;
   align-items: center;
   font-family: "Open Sans", sans-serif;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 15%;
+  margin-right: 15%;
   padding: 5%;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -223,24 +264,109 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   font-family: "Open Sans", sans-serif;
+
   /* margin-bottom: 10%; */
 }
 
 .correctAnswer {
-  color: #5BB15C;
+  color: #FFFFFF;
+  /* White text for contrast */
   font-family: "Open Sans", sans-serif;
-  font-size: xx-large;
-  padding-bottom: 7%;
-  margin-bottom: -7%;
+  font-size: 2rem;
+  /* Scalable font size */
+  padding: 15px 20px;
+  /* Increased padding for better readability */
+  border: none;
+  /* Removed border for a cleaner look */
+  border-radius: 12px;
+  /* More rounded corners */
+  background-color: #20c428;
+  /* Brighter green background */
+  text-align: center;
+  /* Center the text */
+  margin: 20px auto;
+  /* Centered horizontally with margin */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  /* Deeper shadow for more depth */
+  display: inline-block;
+  /* Ensures the box wraps the text */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  /* Smooth transitions */
+}
+
+.correctAnswer:hover {
+  transform: scale(1.1);
+  /* Larger scale on hover */
+  background-color: #20c428;
+  /* Darker green on hover for emphasis */
+}
+
+.correctAnswer:active {
+  transform: scale(1.05);
+  /* Slightly reduced scale on active click */
+  background-color: #20c428;
+  /* Even darker green on active click */
+}
+
+.correctAnswer::before {
+  content: '✔ ';
+  /* Adding a check mark before the text */
+  font-size: 1.5rem;
+  /* Adjust size of the check mark */
+  vertical-align: middle;
+  /* Align the check mark with the text */
 }
 
 .wrongAnswer {
-  color: #C44129;
+  color: #FFFFFF;
+  /* White text for contrast */
   font-family: "Open Sans", sans-serif;
-  font-size: xx-large;
-  padding-bottom: 7%;
-  margin-bottom: -7%;
+  font-size: 2rem;
+  /* Scalable font size */
+  padding: 15px 20px;
+  /* Increased padding for better readability */
+  border: none;
+  /* Removed border for a cleaner look */
+  border-radius: 12px;
+  /* More rounded corners */
+  background-color: #e41818;
+  /* Brighter green background */
+  text-align: center;
+  /* Center the text */
+  margin: 20px auto;
+  /* Centered horizontally with margin */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  /* Deeper shadow for more depth */
+  display: inline-block;
+  /* Ensures the box wraps the text */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  /* Smooth transitions */
 }
+
+.wrongAnswer:hover {
+  transform: scale(1.1);
+  /* Larger scale on hover */
+  background-color: #e41818;
+  /* Darker green on hover for emphasis */
+}
+
+.wrongAnswer:active {
+  transform: scale(1.05);
+  /* Slightly reduced scale on active click */
+  background-color: #e41818;
+  /* Even darker green on active click */
+}
+
+.wrongAnswer::before {
+  content: '✘ ';
+  /* Adding a check mark before the text */
+  font-size: 1.5rem;
+  /* Adjust size of the check mark */
+  vertical-align: middle;
+  /* Align the check mark with the text */
+}
+
+
 
 
 .categorySelectDiv {
@@ -272,7 +398,7 @@ body {
   /* margin-top: "-2%"; */
   padding-bottom: "2%";
   padding-left: "3%";
-  font-size: larger;
+  font-size: x-large;
   margin-left: 5%;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -283,26 +409,35 @@ body {
   /* margin-top: "-2%"; */
   padding-bottom: "2%";
   margin-left: "3%";
-  font-size: larger;
+  font-size: x-large;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
 }
 
 .logoQuiz {
   width: 600px;
+  margin-top: -3%;
 }
 
 .h2question {
-  font-size: large;
+  font-size: x-large;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
 }
 
 @media (max-width: 600px) {
 
+  /* body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    scale: 110%;
+  } */
+
   .logoQuiz {
     width: 350px;
     margin-bottom: 3%;
+    margin-top: 1%;
   }
 
   .tableDiv {
@@ -310,6 +445,10 @@ body {
     margin: 0%;
     width: 100%;
 
+  }
+
+  .mainQuiz {
+    scale: 100%;
   }
 
 
@@ -378,6 +517,35 @@ body {
   }
 
 
+  .startButton {
+    background-color: #ff6b6b;
+    color: #fff;
+    padding: 20px 40px;
+    margin-bottom: 4%;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    /* font-weight: bold; */
+    /* text-transform: uppercase; */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    width: 60%;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+  }
+
   .homeButton {
     background-color: #ff6b6b;
     color: #fff;
@@ -390,9 +558,10 @@ body {
     font-weight: 400;
     font-size: 20px;
     /* font-weight: bold; */
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
+    width: 50%;
 
     &:hover {
       transform: translateY(-3px);
