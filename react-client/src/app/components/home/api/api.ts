@@ -36,6 +36,34 @@ export async function getAllSportQuestions() {
     }
 }
 
+export async function getAllTVQuestions() {
+    try {
+        const questionsCollection = collection(fstore, "tvQuestions");
+        const querySnapshot = await getDocs(questionsCollection);
+
+        const questionsData = querySnapshot.docs.map((doc) => doc.data());
+        // console.log(questionsData[0].results);
+        const data = questionsData[0].results
+        return data
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getAllScienceQuestions() {
+    try {
+        const questionsCollection = collection(fstore, "scienceQuestions");
+        const querySnapshot = await getDocs(questionsCollection);
+
+        const questionsData = querySnapshot.docs.map((doc) => doc.data());
+        // console.log(questionsData[0].results);
+        const data = questionsData[0].results
+        return data
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function getAllFilmQuestions() {
     try {
         const questionsCollection = collection(fstore, "filmQuestions");

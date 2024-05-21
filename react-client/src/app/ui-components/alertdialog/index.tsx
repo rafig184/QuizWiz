@@ -7,17 +7,25 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { setTimeIsUp } from '../../components/slices/questionsSlice';
+import { RootState } from '../../store';
 
 
 export function AlertDialogTime() {
     const [open, setOpen] = React.useState(true);
-
+    const dispatch = useDispatch();
 
     const navigate = useNavigate()
+
     const handleClose = () => {
         setOpen(false);
         navigate("/scoreBoard")
+        dispatch(setTimeIsUp(false))
     };
+
+    const timeIsUp = useSelector((state: RootState) => state.questions.timeIsUp);
+    console.log(timeIsUp);
 
     return (
         <React.Fragment>
@@ -46,7 +54,7 @@ export function AlertDialogTime() {
     );
 }
 
-export function AlertDialogWrong() {
+export function AlertDialogWrong(props: { score: number }) {
     const [open, setOpen] = React.useState(true);
 
 
@@ -70,10 +78,11 @@ export function AlertDialogWrong() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Wrong answer! Better luck next time..
+                        This was your 3 Wrong answer! Better luck next time..
                         <br />
-
                         To gain score you need at least 3 right answers..
+                        <br />
+                        Your score is {props.score}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -157,6 +166,47 @@ export function AlertDialogHomeBtn() {
                     <Button onClick={handleClose}>Close</Button>
                     <Button onClick={handleCloseHome} autoFocus>
                         Back Home
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </React.Fragment>
+    );
+}
+
+export function AlertDialogWin(props: { score: number }) {
+    const [open, setOpen] = React.useState(true);
+
+
+    const navigate = useNavigate()
+    const handleClose = () => {
+        setOpen(false);
+        navigate("/scoreBoard")
+    };
+
+    return (
+        <React.Fragment>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"You Won!"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Congratulations, you won the QuizWiz trivia!
+                        <br />
+                        Your knowledge and quick thinking have paid off
+                        <br />
+                        Your score is {props.score}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} autoFocus>
+                        Close
                     </Button>
                 </DialogActions>
             </Dialog>

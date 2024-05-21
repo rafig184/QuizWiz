@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getAllFilmQuestions, getAllGeneralQuestions, getAllHistoryQuestions, getAllSportQuestions } from "../home/api/api"
+import { getAllFilmQuestions, getAllGeneralQuestions, getAllHistoryQuestions, getAllScienceQuestions, getAllSportQuestions, getAllTVQuestions } from "../home/api/api"
 
 
 
 const initialState = {
     questions: [] as any,
+    timeIsUp: false
 
 }
+
+
 
 export const fetchGeneralQuestionsAsync = createAsyncThunk(
     "home/getAllGeneralQuestions",
@@ -37,6 +40,20 @@ export const fetchHistoryQuestionsAsync = createAsyncThunk(
         return response
     }
 )
+export const fetchTvQuestionsAsync = createAsyncThunk(
+    "home/getAllTVQuestions",
+    async () => {
+        const response = await getAllTVQuestions()
+        return response
+    }
+)
+export const fetchScienceQuestionsAsync = createAsyncThunk(
+    "home/getAllScienceQuestions",
+    async () => {
+        const response = await getAllScienceQuestions()
+        return response
+    }
+)
 
 
 
@@ -46,7 +63,9 @@ export const questionsSlice = createSlice({
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
-
+        setTimeIsUp: (state, action) => {
+            state.timeIsUp = action.payload;
+        },
 
     },
     extraReducers: (builder) => {
@@ -101,6 +120,31 @@ export const questionsSlice = createSlice({
             .addCase(fetchHistoryQuestionsAsync.rejected, (state) => {
                 state.questions = []
             })
+        builder
+            .addCase(fetchTvQuestionsAsync.pending, (state) => {
+                state.questions = []
+            })
+
+            .addCase(fetchTvQuestionsAsync.fulfilled, (state, action) => {
+                state.questions = action.payload
+            })
+
+            .addCase(fetchTvQuestionsAsync.rejected, (state) => {
+                state.questions = []
+            })
+        builder
+            .addCase(fetchScienceQuestionsAsync.pending, (state) => {
+                state.questions = []
+            })
+
+            .addCase(fetchScienceQuestionsAsync.fulfilled, (state, action) => {
+                state.questions = action.payload
+            })
+
+            .addCase(fetchScienceQuestionsAsync.rejected, (state) => {
+                state.questions = []
+            })
+
     },
 
 })
@@ -114,5 +158,5 @@ export const questionsSlice = createSlice({
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
-
+export const { setTimeIsUp } = questionsSlice.actions;
 export default questionsSlice.reducer

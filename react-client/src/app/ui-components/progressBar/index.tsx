@@ -8,15 +8,21 @@ import moment from "moment";
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertDialogTime } from "../alertdialog";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { setTimeIsUp } from "../../components/slices/questionsSlice";
 
 
 const SubmitTimeProgressBar = () => {
+    const timeIsUp = useSelector((state: RootState) => state.questions.timeIsUp);
+
     const initialTime = 30; // in seconds
     const [timeLeft, setTimeLeft] = useState(initialTime);
     const [progressBarPercent, setProgressBarPercent] = useState(0);
     const navigate = useNavigate()
     const timerId: any = useRef();
     const [openDialog, setOpenDialog] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (initialTime) {
@@ -30,6 +36,11 @@ const SubmitTimeProgressBar = () => {
         }
     }, []);
 
+
+    const handleTimeUp = () => {
+        dispatch(setTimeIsUp(true));
+    };
+
     useEffect(() => {
         if (initialTime) {
             if (progressBarPercent < 100) {
@@ -41,7 +52,8 @@ const SubmitTimeProgressBar = () => {
 
             if (timeLeft === 0 && timerId.current) {
                 clearInterval(timerId.current);
-                // setOpenDialog(true);
+                handleTimeUp();
+                setOpenDialog(true);
                 return;
             }
         }
@@ -60,7 +72,7 @@ const SubmitTimeProgressBar = () => {
 
                     marginTop: "4%",
                     width: "100%",
-                    marginBottom: "-4%"
+                    marginBottom: "-2%"
                 }}
             >
                 <Box sx={{ width: "85%" }}>

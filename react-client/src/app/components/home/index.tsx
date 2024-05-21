@@ -7,11 +7,11 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, si
 import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom";
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { fetchFilmQuestionsAsync, fetchGeneralQuestionsAsync, fetchHistoryQuestionsAsync, fetchSportQuestionsAsync } from "../slices/questionsSlice";
+import { fetchFilmQuestionsAsync, fetchGeneralQuestionsAsync, fetchHistoryQuestionsAsync, fetchScienceQuestionsAsync, fetchSportQuestionsAsync, fetchTvQuestionsAsync } from "../slices/questionsSlice";
 import { fetchSignInWithGoogle, fetchSignOutWithGoogle } from "../slices/usersSlice";
 import { AlertDialogSignIn } from "../../ui-components/alertdialog";
 import HomeIcon from '@mui/icons-material/Home';
-import logo from "../../../assets/logo.png"
+import logo from "../../../assets/horizontalLogo.png"
 import firebase from "firebase/compat/app";
 import Spinner from "../../ui-components/spinner";
 // import {  GoogleIcon } from '@mui/icons-material/Google';
@@ -104,8 +104,29 @@ const Home = () => {
             } finally {
                 setIsLoading(false)
             }
-        }
+        } else if (category === "Television") {
+            try {
+                setIsLoading(true)
+                await dispatch(fetchTvQuestionsAsync())
+                navigate('/quiz')
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setIsLoading(false)
+            }
 
+        } else if (category === "Science") {
+            try {
+                setIsLoading(true)
+                await dispatch(fetchScienceQuestionsAsync())
+                navigate('/quiz')
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setIsLoading(false)
+            }
+
+        }
     }
 
     async function signIn() {
@@ -152,18 +173,20 @@ const Home = () => {
     return (
         <div>
             <div className="header">
-                <img className="logo" src={logo} width={200}></img>
+                <img className="logoQuiz" src={logo} style={{ marginTop: "0.5%" }} ></img>
             </div>
 
             {isLoading ? <Spinner /> : <div className="mainHomeDiv">
 
                 <div className="home-container">
                     <h1>Welcome to QuizWiz!</h1>
-                    <p>Are you ready to test your knowledge and have fun? QuizWiz is the ultimate trivia game that will challenge your brain with a wide range of exciting questions across various categories.</p>
+                    <p>Are you ready to test your knowledge and have fun? QuizWiz is the ultimate trivia game that will challenge your brain.</p>
                     <ul>
                         <li>Choose from a variety of categories including Science, History, Movies, Sports, and more.</li>
                         <li>Compete with friends and family to see who's the ultimate QuizWiz!</li>
                         <li>Climb the leaderboard to showcase your trivia mastery.</li>
+                        <li>In each game you will get 3 lifelines.</li>
+                        <li>Answer all questions correctly without using any lifelines to earn an extra 2000 points.</li>
                     </ul>
                     <p>Get started now and embark on a journey of knowledge and entertainment with QuizWiz!</p>
                     <p>But first, Sign in with your Google Account.</p>
@@ -184,6 +207,8 @@ const Home = () => {
                                 <MenuItem value={"Sport"}>Sport</MenuItem>
                                 <MenuItem value={"Movies"}>Movies</MenuItem>
                                 <MenuItem value={"History"}>History</MenuItem>
+                                <MenuItem value={"Television"}>Television</MenuItem>
+                                <MenuItem value={"Science"}>Science</MenuItem>
 
                             </Select>
                         </FormControl>
@@ -194,7 +219,7 @@ const Home = () => {
                     {isUserSignedIn ? <GoogleButton label={`Welcome ${userName}`} onClick={signOut} /> : <GoogleButton onClick={signIn} />}
                 </div>
                 <div className="startBtnDiv">
-                    <button className="startButton" onClick={startQuiz}>Start</button>
+                    <button className="startButton" onClick={startQuiz}>Play</button>
                 </div>
 
                 {openDialog && <AlertDialogSignIn />}
