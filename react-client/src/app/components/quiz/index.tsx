@@ -41,6 +41,7 @@ const Quiz = () => {
     const [activeStep, setActiveStep] = useState(0);
     const [lifeSpan, setLifeSpan] = useState(3);
     const [score, setScore] = useState(0);
+    const [isWrongIndex, SetIsWrongIndex] = useState([] as any);
     const [selectedAnswer, setSelectedAnswer] = useState("");
     const usedIndices = useRef<Set<number>>(new Set());
 
@@ -156,6 +157,8 @@ const Quiz = () => {
     }, [timeIsUp])
 
 
+
+
     useEffect(() => {
         if (selectedAnswer) {
             const loggeduser = loggedUser.user.displayName
@@ -194,6 +197,7 @@ const Quiz = () => {
                     setIsQuestionStandby(false)
                     setIsCorrect(false);
                     setIsWrong(true);
+                    SetIsWrongIndex((prevIsWrongIndex: any) => [...prevIsWrongIndex, activeStep]);
                     if (newLifeSpan < 1) {
                         if (activeStep < 3) {
                             setScore(0)
@@ -213,7 +217,7 @@ const Quiz = () => {
                         }
 
                     } else {
-                        // setIsWrong(true)
+                        setActiveStep((prevActiveStep) => prevActiveStep + 1);
                         setTimeout(() => {
                             showRandomQuestion();
                             setIsWrong(false)
@@ -223,7 +227,7 @@ const Quiz = () => {
             }, 3000);
         }
     }, [selectedAnswer])
-
+    console.log(isWrongIndex);
 
     async function selectAnswer(answer: string) {
         setSelectedAnswer(answer);
@@ -266,7 +270,7 @@ const Quiz = () => {
                         </div>
                         <h4 className="lifespan">Lifes:{renderLifeSpanHearts()}</h4>
                     </div>
-                    <HorizontalLinearAlternativeLabelStepper key={activeStep} activeStep={activeStep} />
+                    <HorizontalLinearAlternativeLabelStepper key={activeStep} activeStep={activeStep} isWrongIndex={isWrongIndex} />
                 </div>
                 <div className="questionClass">
                     {question && Object.keys(question).length !== 0 && (
