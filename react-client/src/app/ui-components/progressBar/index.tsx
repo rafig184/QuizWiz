@@ -11,6 +11,7 @@ import { AlertDialogTime } from "../alertdialog";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { setTimeIsUp } from "../../components/slices/questionsSlice";
+import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 
 const SubmitTimeProgressBar = () => {
@@ -23,6 +24,8 @@ const SubmitTimeProgressBar = () => {
     const timerId: any = useRef();
     const [openDialog, setOpenDialog] = useState(false);
     const dispatch = useDispatch();
+
+
 
     useEffect(() => {
         if (initialTime) {
@@ -56,6 +59,7 @@ const SubmitTimeProgressBar = () => {
                 setOpenDialog(true);
                 return;
             }
+
         }
     }, [timeLeft]);
 

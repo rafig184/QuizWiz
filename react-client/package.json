@@ -27,7 +27,8 @@
     "react-dom": "^18.2.0",
     "react-google-button": "^0.8.0",
     "react-redux": "^9.1.0",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "react-use-audio-player": "^2.2.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.3.4",

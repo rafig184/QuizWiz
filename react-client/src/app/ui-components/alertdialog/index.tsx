@@ -78,9 +78,7 @@ export function AlertDialogWrong(props: { score: number }) {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        This was your 3 Wrong answer! Better luck next time..
-                        <br />
-                        To gain score you need at least 3 right answers..
+                        This was your third Wrong answer! Better luck next time..
                         <br />
                         Your score is {props.score}
                     </DialogContentText>

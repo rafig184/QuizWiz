@@ -6,6 +6,7 @@ import StepLabel from '@mui/material/StepLabel';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import DoneIcon from '@mui/icons-material/Done';
 
 const steps = [
   '',
@@ -33,20 +34,24 @@ export default function HorizontalLinearAlternativeLabelStepper(props: { key: nu
             error?: boolean;
             icon?: React.ReactNode;
           } = {};
+          const stepProps: {
+            completed?: boolean
+          } = {};
           if (props.isWrongIndex.includes(index)) {
-            labelProps.optional = (
-              <Typography variant="caption" color="error">
-
-              </Typography>
-            );
             labelProps.error = true;
-            labelProps.icon = <CloseIcon color="error" />;
+            labelProps.icon = <CloseIcon style={{ color: "white", backgroundColor: "#fa2e20", padding: "1.5%", borderRadius: "50px" }} color="error" />;
+          } else if (props.activeStep > index) {
+            stepProps.completed = true;
+            labelProps.icon = <DoneIcon style={{ color: "white", backgroundColor: "#20c428", padding: "1.5%", borderRadius: "50px" }} color="success" />;
           }
+
+
           return (
-            <Step key={index}>
+            <Step key={index} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );
+
         })}
       </Stepper>
     </Box>

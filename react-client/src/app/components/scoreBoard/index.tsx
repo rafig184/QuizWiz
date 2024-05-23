@@ -51,11 +51,12 @@ const ScoreBoard = () => {
             backgroundColor: '#f50057',
             color: theme.palette.common.white,
             fontWeight: 'bold',
-            fontSize: 16,
+            fontSize: 20,
+            fontFamily: 'Nunito, sans-serif',
         },
         [`&.${tableCellClasses.body}`]: {
-            fontSize: 14,
-            fontFamily: 'Open Sans, sans-serif',
+            fontSize: 18,
+            fontFamily: 'Nunito, sans-serif',
             color: '#3f51b5',
         },
     }));
@@ -122,7 +123,7 @@ const ScoreBoard = () => {
             )}
             <div className="startBtnDiv">
                 <button onClick={homeButton} className='homeButton'>
-                    <HomeIcon style={{ fontSize: 'xx-large' }} />  Home
+                    <HomeIcon style={{ fontSize: 'xx-large', fontFamily: 'Nunito, sans-serif' }} />  Home
                 </button>
             </div>
         </div>

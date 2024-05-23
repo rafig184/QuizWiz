@@ -18,6 +18,9 @@ import logo from "../../../assets/horizontalLogo.png"
 import Skelaton from "../../ui-components/skelaton";
 import Spinner from "../../ui-components/spinner";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import soundtrack from '../../../assets/soundtracl.mp3'
+import countdown from '../../../assets/countdown.mp3'
+import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 
 
@@ -44,7 +47,7 @@ const Quiz = () => {
     const [isWrongIndex, SetIsWrongIndex] = useState([] as any);
     const [selectedAnswer, setSelectedAnswer] = useState("");
     const usedIndices = useRef<Set<number>>(new Set());
-
+    const { load, stop } = useGlobalAudioPlayer();
 
     const shuffleArray = (array: any[]) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -53,6 +56,15 @@ const Quiz = () => {
         }
         return array;
     };
+
+    useEffect(() => {
+        load(soundtrack, {
+            autoplay: true,
+            loop: true,
+            initialVolume: 0.5
+        });
+    }, []);
+
 
     useEffect(() => {
         try {
@@ -144,15 +156,10 @@ const Quiz = () => {
         console.log(timeIsUp);
 
         if (timeIsUp === true) {
-            if (activeStep < 3) {
-                const user = addUserToDB({ user: loggeduser, score: 0 })
-                console.log({ user: loggeduser, score: 0 });
-                dispatch(fetchScoreboard())
-            } else {
-                const user = addUserToDB({ user: loggeduser, score: score })
-                console.log({ user: loggeduser, score: score });
-                dispatch(fetchScoreboard())
-            }
+            const user = addUserToDB({ user: loggeduser, score: score })
+            console.log({ user: loggeduser, score: score });
+            dispatch(fetchScoreboard())
+            stop()
         }
     }, [timeIsUp])
 
@@ -161,6 +168,7 @@ const Quiz = () => {
 
     useEffect(() => {
         if (selectedAnswer) {
+
             const loggeduser = loggedUser.user.displayName
             setTimeout(async () => {
                 if (selectedAnswer === correctAnswer) {
@@ -177,6 +185,7 @@ const Quiz = () => {
                         console.log({ user: loggeduser, score: 12000 });
                         dispatch(fetchScoreboard())
                         setIsWinning(true)
+                        stop()
 
                     } else if (activeStep === 9) {
                         setScore(10000)
@@ -184,6 +193,7 @@ const Quiz = () => {
                         console.log({ user: loggeduser, score: 10000 });
                         dispatch(fetchScoreboard())
                         setIsWinning(true)
+                        stop()
                     } else {
                         setTimeout(() => {
                             showRandomQuestion();
@@ -199,22 +209,12 @@ const Quiz = () => {
                     setIsWrong(true);
                     SetIsWrongIndex((prevIsWrongIndex: any) => [...prevIsWrongIndex, activeStep]);
                     if (newLifeSpan < 1) {
-                        if (activeStep < 3) {
-                            setScore(0)
-                            const finalScore = 0
-                            const user = await addUserToDB({ user: loggeduser, score: finalScore })
-                            console.log({ user: loggeduser, score: finalScore });
-                            dispatch(fetchScoreboard())
-                            setOpenDialog(true)
-                            setSelectedAnswer("");
-                        } else {
-                            dispatch(fetchScoreboard())
-
-                            setOpenDialog(true)
-                            setSelectedAnswer("");
-                            const user = await addUserToDB({ user: loggeduser, score: score })
-                            console.log({ user: loggeduser, score: score });
-                        }
+                        const user = await addUserToDB({ user: loggeduser, score: score })
+                        console.log({ user: loggeduser, score: score });
+                        dispatch(fetchScoreboard())
+                        setOpenDialog(true)
+                        setSelectedAnswer("");
+                        stop()
 
                     } else {
                         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -228,6 +228,8 @@ const Quiz = () => {
         }
     }, [selectedAnswer])
     console.log(isWrongIndex);
+
+
 
     async function selectAnswer(answer: string) {
         setSelectedAnswer(answer);
@@ -247,8 +249,7 @@ const Quiz = () => {
         return (
             <>
                 {Array.from({ length: lifeSpan }).map((_, index) => (
-
-                    <FavoriteIcon fontSize="medium" key={index} style={{ color: "white", backgroundColor: "#ff6b6b", borderRadius: "50px", padding: "3%" }} />
+                    <FavoriteIcon fontSize="medium" key={index} style={{ color: "white", backgroundColor: "#ff6b6b", borderRadius: "50px", padding: "4%" }} />
                 ))}
             </>
         );
@@ -321,7 +322,7 @@ const Quiz = () => {
             {isWinning && <AlertDialogWin score={score} />}
             {openDialog && <AlertDialogWrong score={score} />}
             <div className="homeBtnDiv">
-                <button style={{ display: "flex", alignItems: " center" }} className="homeButton" onClick={homeButton}><HomeIcon style={{ fontSize: "xx-large" }} /> Home</button>
+                <button style={{ display: "flex", alignItems: " center" }} className="homeButton" onClick={homeButton}><HomeIcon style={{ fontSize: "xx-large", fontFamily: 'Nunito, sans-serif' }} /> Home</button>
             </div>
             {isQuiting && <AlertDialogHomeBtn />}
 
