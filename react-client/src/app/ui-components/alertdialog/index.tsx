@@ -10,7 +10,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setTimeIsUp } from '../../components/slices/questionsSlice';
 import { RootState } from '../../store';
-
+import soundtrack from '../../../assets/soundtrack.mp3'
+import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 export function AlertDialogTime() {
     const [open, setOpen] = React.useState(true);
@@ -131,7 +132,7 @@ export function AlertDialogSignIn() {
 
 export function AlertDialogHomeBtn() {
     const [open, setOpen] = React.useState(true);
-
+    const { load } = useGlobalAudioPlayer();
 
     const navigate = useNavigate()
     const handleCloseHome = () => {
@@ -140,7 +141,11 @@ export function AlertDialogHomeBtn() {
     };
     const handleClose = () => {
         setOpen(false);
-
+        load(soundtrack, {
+            autoplay: true,
+            loop: true,
+            initialVolume: 0.5
+        });
     };
 
 

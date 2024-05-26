@@ -2,24 +2,19 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { RootState } from "../../store";
 import { useEffect, useRef, useState } from "react";
-import { fetchGeneralQuestionsAsync } from "../slices/questionsSlice";
-import SkeletonTypography from "../../ui-components/skelaton";
-import Variants from "../../ui-components/skelaton";
-import { Skeleton } from "@mui/material";
-import LinearDeterminate from "../../ui-components/progressBar";
 import HomeIcon from '@mui/icons-material/Home';
-import { useNavigate } from "react-router-dom";
 import SubmitTimeProgressBar from "../../ui-components/progressBar";
 import { AlertDialogHomeBtn, AlertDialogWin, AlertDialogWrong } from "../../ui-components/alertdialog";
 import HorizontalLinearAlternativeLabelStepper from "../../ui-components/stepper";
 import { addUserToDB } from "../home/api/api";
 import { fetchScoreboard } from "../slices/usersSlice";
 import logo from "../../../assets/horizontalLogo.png"
-import Skelaton from "../../ui-components/skelaton";
-import Spinner from "../../ui-components/spinner";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import soundtrack from '../../../assets/soundtracl.mp3'
-import countdown from '../../../assets/countdown.mp3'
+import soundtrack from '../../../assets/soundtrack.mp3'
+import selectSound from '../../../assets/select.mp3'
+import correctSound from '../../../assets/correct.mp3'
+import wrongSound from '../../../assets/wrong.mp3'
+import timesupSound from '../../../assets/timesup.mp3'
 import { useGlobalAudioPlayer } from 'react-use-audio-player';
 
 
@@ -87,6 +82,11 @@ const Quiz = () => {
     }, [questions])
 
     const showRandomQuestion = async () => {
+        load(soundtrack, {
+            autoplay: true,
+            loop: true,
+            initialVolume: 0.5
+        });
         if (usedIndices.current.size >= questions.length) {
             console.log("All questions have been shown");
             return;
@@ -156,10 +156,14 @@ const Quiz = () => {
         console.log(timeIsUp);
 
         if (timeIsUp === true) {
+            load(timesupSound, {
+                autoplay: true,
+                loop: false,
+                initialVolume: 0.5
+            });
             const user = addUserToDB({ user: loggeduser, score: score })
             console.log({ user: loggeduser, score: score });
             dispatch(fetchScoreboard())
-            stop()
         }
     }, [timeIsUp])
 
@@ -168,10 +172,19 @@ const Quiz = () => {
 
     useEffect(() => {
         if (selectedAnswer) {
-
+            load(selectSound, {
+                autoplay: true,
+                loop: false,
+                initialVolume: 0.5
+            });
             const loggeduser = loggedUser.user.displayName
             setTimeout(async () => {
                 if (selectedAnswer === correctAnswer) {
+                    load(correctSound, {
+                        autoplay: true,
+                        loop: false,
+                        initialVolume: 0.5
+                    });
                     setSelectedAnswer(selectedAnswer);
                     const score = 1000
                     setScore((oldScore) => oldScore + score)
@@ -202,6 +215,11 @@ const Quiz = () => {
                     }
 
                 } else {
+                    load(wrongSound, {
+                        autoplay: true,
+                        loop: false,
+                        initialVolume: 0.5
+                    });
                     const newLifeSpan = lifeSpan - 1
                     setLifeSpan(newLifeSpan)
                     setIsQuestionStandby(false)
@@ -238,10 +256,11 @@ const Quiz = () => {
     }
 
     function homeButton() {
+        stop()
         setIsQuiting(true)
         setTimeout(() => {
             setIsQuiting(false)
-        }, 30000);
+        }, 10000);
     }
 
 

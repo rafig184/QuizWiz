@@ -444,10 +444,55 @@ body {
   margin-top: 2%;
 }
 
-/* .spinner {
+@keyframes heartbeat {
 
-  padding-top: 15%;
-} */
+  0%,
+  100% {
+    transform: scale(2.0);
+  }
+
+  8.3%,
+  91.7% {
+    transform: scale(2.15);
+  }
+
+  16.6%,
+  83.4% {
+    transform: scale(2.3);
+  }
+
+  25%,
+  75% {
+    transform: scale(2.5);
+  }
+
+  33.3%,
+  66.7% {
+    transform: scale(2.6);
+  }
+
+  41.6%,
+  58.4% {
+    transform: scale(2.75);
+  }
+
+  50% {
+    transform: scale(3);
+  }
+}
+
+.countdown-text {
+  font-family: 'Bungee', cursive;
+  font-weight: 700;
+  font-size: 150px;
+  /* padding-left: 1rem; */
+  padding-top: 100%;
+  color: #fcff47;
+  -webkit-text-stroke: 0.5px #a1a330;
+  /* Vibrant red */
+  text-shadow: 0 0 10px #000000, 0 0 20px #ffa502;
+  animation: heartbeat 1.5s infinite;
+}
 
 @keyframes pulse {
   0% {
@@ -469,12 +514,11 @@ body {
 
 @media (max-width: 600px) {
 
-  /* body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    scale: 110%;
-  } */
+  .countdown-text {
+
+    padding-top: 50%;
+
+  }
 
   .spinner {
     size: 50;

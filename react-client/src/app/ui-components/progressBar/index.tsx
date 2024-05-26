@@ -96,14 +96,14 @@ const SubmitTimeProgressBar = () => {
                 </Box>
 
                 <Box sx={{ ml: 1, display: "flex" }}>
-                    <Typography sx={{ fontWeight: 400, fontSize: "20px", marginTop: "5%" }}>
+                    {/* <Typography sx={{ fontWeight: 400, fontSize: "20px", marginTop: "5%" }}>
                         Time left:
-                    </Typography>
-                    <Typography sx={{ fontWeight: 700, fontSize: "20px", ml: 1, marginTop: "5%" }}>
+                    </Typography> */}
+                    <Typography className="countdown-text">
                         {moment
                             .utc(1000 * timeLeft)
                             .format(
-                                `${timeLeft > 3600 ? "ss[s]" : "ss[s]"} `
+                                `${timeLeft > 3600 ? "ss" : "ss"} `
                             )}
                     </Typography>
                 </Box>
