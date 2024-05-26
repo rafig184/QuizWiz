@@ -17,7 +17,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "type-check": "tsc --noEmit",
-    "heroku-postbuild": "ng build --configuration=production"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
