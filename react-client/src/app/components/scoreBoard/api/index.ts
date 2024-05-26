@@ -1,5 +1,5 @@
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { firestore } from "../../../../../../server/firebase";
+import { firestore } from "../../../../../server/firebase";
 
 
 

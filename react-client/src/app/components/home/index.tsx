@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { RootState } from "../../store";
 import React, { useEffect } from "react";
-import { auth, googleProvider } from "../../../../../server/firebase";
+import { auth, googleProvider } from "../../../../server/firebase";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom";

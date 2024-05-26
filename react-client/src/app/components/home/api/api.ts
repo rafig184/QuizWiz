@@ -1,7 +1,7 @@
 import { collection, query, where, getDocs, addDoc, updateDoc, DocumentData } from "firebase/firestore";
 import { fstore } from "../../../../firebase_handler";
 import { User, signInWithPopup } from "firebase/auth";
-import { auth, firestore, googleProvider } from "../../../../../../server/firebase";
+import { auth, firestore, googleProvider } from "../../../../../server/firebase";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
