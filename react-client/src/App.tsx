@@ -8,7 +8,7 @@ import ScoreBoard from "./app/components/scoreBoard"
 import { IconButton } from "@mui/material"
 
 import { useSelector } from "react-redux"
-import { RootState } from "../../react-client/src/app/store";
+import { RootState } from "../src/app/store";
 import React, { useEffect } from "react"
 
 
