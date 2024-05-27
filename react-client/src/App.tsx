@@ -1,11 +1,14 @@
 
 import "./App.css"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"
 import Home from "./app/components/home"
 import Quiz from "./app/components/quiz"
+import logo from "../src/assets/logo.png"
 import ScoreBoard from "./app/components/scoreBoard"
+import { IconButton } from "@mui/material"
+
 import { useSelector } from "react-redux"
-import { RootState } from "../src/app/store";
+import { RootState } from "../../react-client/src/app/store";
 import React, { useEffect } from "react"
 
 
@@ -16,7 +19,7 @@ const App = () => {
 
   const loggedUser = useSelector((state: RootState) => state.loggedUser.loggedUser);
   const [userName, setUserName] = React.useState('');
-
+  // const navigate = useNavigate()
 
   useEffect(() => {
     if (loggedUser === true) {

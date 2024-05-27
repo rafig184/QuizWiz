@@ -408,8 +408,6 @@ body {
   font-family: "Nunito", sans-serif;
   font-weight: 500;
   margin-bottom: -5%;
-  color: #000000;
-  -webkit-text-stroke: 0.7px #6b6b6b;
 }
 
 .score {
@@ -419,8 +417,6 @@ body {
   font-size: x-large;
   font-family: "Nunito", sans-serif;
   font-weight: 500;
-  color: #000000;
-  -webkit-text-stroke: 0.7px #6b6b6b;
 }
 
 .logoQuiz {
@@ -442,8 +438,6 @@ body {
   font-size: x-large;
   font-weight: 500;
   font-family: "Nunito", sans-serif;
-  color: #000000;
-  -webkit-text-stroke: 0.7px #6b6b6b;
 }
 
 .timer {

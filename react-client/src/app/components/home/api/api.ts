@@ -1,7 +1,7 @@
 import { collection, query, where, getDocs, addDoc, updateDoc, DocumentData } from "firebase/firestore";
 import { fstore } from "../../../../firebase_handler";
 import { User, signInWithPopup } from "firebase/auth";
-import { auth, firestore, googleProvider } from "../../../../../server/firebase";
+import { auth, googleProvider } from "../../../../firebase_handler.js";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -119,7 +119,7 @@ interface UserData {
 
 export async function addUserToDB(data: UserData) {
     const { user, score } = data;
-    const usersRef = collection(firestore, 'users');
+    const usersRef = collection(fstore, 'users');
     const userQuery = query(usersRef, where('user', '==', user));
 
     try {
